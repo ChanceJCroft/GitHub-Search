@@ -4,11 +4,13 @@ import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
 import axios from 'axios';
+import Alert from './components/layout/Alert';
 
 class App extends Component {
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   }
 
 //uncomment this section below if you want to have it default to showing the first X users
@@ -37,6 +39,11 @@ class App extends Component {
     this.setState({ users: [], loading: false });
   }
 
+  setAlert = (msg, type) => {
+    this.setState({ alert: {msg: msg, type: type} });
+    setTimeout(() => this.setState({alert: null}), 3000)
+  }
+
   render() {
       const { users, loading } = this.state;
 
@@ -48,9 +55,11 @@ class App extends Component {
         <Navbar className="navbar bg-primary"/>
       </nav>
       <div className="container">
+        <Alert alert={this.state.alert} />
         <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} 
         //if there are any users being shown, showClear is true, otherwise it is false
-        showClear={users.length > 0 ? true : false }/>
+        showClear={users.length > 0 ? true : false }
+        setAlert={this.setAlert}/>
         {/* Place the users below in a separate container div - CSS applied to container */}
         {/* pass in the loading and users as props through state */}
         <Users loading={loading} users={users} />

@@ -9,7 +9,8 @@ export class Search extends Component {
     static propTypes = {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
-        showClear: PropTypes.bool.isRequired
+        showClear: PropTypes.bool.isRequired,
+        setAlert: PropTypes.func.isRequired
     }
 
     onChange = (e) => {
@@ -19,11 +20,16 @@ export class Search extends Component {
     //should use arrow functions, it is cleaner and simpler when using "this"
     onSubmit = (e) => {
         e.preventDefault();
+        if(this.state.text === ''){
+            this.props.setAlert('Please enter something', 'light');
+        } 
+        else {
         //passing in the TEXT of the search bar up through PROPS. searchUsers defined in App.js
         this.props.searchUsers(this.state.text);
         
         //changes the text to be blank after submission 
         this.setState({ text: '' });
+        }
     }
 
     render() {
