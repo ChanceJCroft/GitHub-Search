@@ -7,10 +7,10 @@ const Navbar = ({ icon, title }) => {
 //Do not need to run the render() command if it is a function and not a state
         return (
           <nav className='navbar bg-primary'>
+            <h1>
+                <i className={icon} />{title}
+            </h1>
             <div>
-                <h1>
-                    <i className={icon} />{title}
-                </h1>
                 <ul>
                     <li>
                         <Link to="/">Home</Link>
